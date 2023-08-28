@@ -71,8 +71,8 @@ Here are the main drivers of used car prices.
 - Conversely, **Sedan** (-0.16) and **Honda** (-0.1) are slightly negatively correlated with Price, suggesting they are slightly cheaper options.
 - In addition to Honda, a few manufacturers seem to have a weak negative correlation with Price: **Nissan** (-0.07), **Chrysler** (-0.06), and **Hyundai** (-0.06).
 - And lastly, vehicles with **Automatic** transmission (-0.08), or that are **Hatchbacks** (-0.06) or **Minivans** (-0.06), tend to be slightly cheaper.
-
-<img src="images/price_odometer_year.png" alt="Price vs. Odometer by Year" width="400" align="top" /> <img src="images/price_correlations.png" alt="Correlations with Price" width="400" align="top" />
+<p> <br /></p>
+<img src="images/price_odometer_year.png" alt="Price vs. Odometer by Year" width="300" align="top" /> <img src="images/price_correlations.png" alt="Correlations with Price" width="300" align="top" /> <img src="images/price_distribution.png" alt="Distribution of Price by Year" width="300" align="top" />
 
 ### 2. Provide recommendations on what consumers value
 

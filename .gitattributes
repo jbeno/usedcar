@@ -1,3 +1,2 @@
-usedcar.ipynb filter=lfs diff=lfs merge=lfs -text
 data/vehicles.csv filter=lfs diff=lfs merge=lfs -text
 data/df_enc.csv filter=lfs diff=lfs merge=lfs -text
