@@ -103,7 +103,7 @@ Here is how used car dealears can adjust their inventory to align with consumer 
 * Vehicle of type Sedan, Hatchback or Minivan
 * Stock less of these manufacturers: Honda, Nissan, Chrysler, Hyundai
 
-It's important to note that all of these car types exhist for a reason: There are people that really want an automatic, gas-powered sedan; or that need a hatchback or minivan; or love Hondas, or older cars. There is likely some demand for these, they just don't seem to command a premium.
+It's important to note that all of these car types exist for a reason: There are people that really want an automatic, gas-powered sedan; or that need a hatchback or minivan; or love Hondas, or older cars. There is likely some demand for these, they just don't seem to command a premium.
 
 ### 3. Create price prediction model
 
