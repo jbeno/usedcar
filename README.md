@@ -1,8 +1,8 @@
 # Used Car Price Analysis
 This is an analysis of used car listings on Craigslist done as a project for the U.C. Berkeley Certificate in Machine Learning & Artificial Intelligence. The entire process follows the CRISP-DM framework and is documented in this Jupyter notebook file:
 
-* [usedcar.ipynb](usedcar.ipynb)
-
+* [usedcar.ipynb](usedcar.ipynb) (Too big to preview on Github)
+* [Preview on nbviewer](https://nbviewer.org/urls/www.dropbox.com/scl/fi/z41l71lgnqs8yl8x0if4u/usedcar.ipynb/%3Frlkey%3Dzjl2y6u46vj6av6sde1iw0n61%26dl%3D1)
 
 ## Background
 
