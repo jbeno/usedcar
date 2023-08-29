@@ -617,7 +617,7 @@ def plot_map_ca(df, lon='Longitude', lat='Latitude', hue=None, size=None, size_r
 import pandas as pd
 import numpy as np
 
-def get_corr(df, n=5, var=None, show_results=True):
+def get_corr(df, n=5, var=None, show_results=True, return_arrays=False):
     """
     Gets the top n positive and negative correlations in a dataframe. Returns them in two
     arrays. By default, prints a summary of the top positive and negative correlations.
@@ -628,9 +628,10 @@ def get_corr(df, n=5, var=None, show_results=True):
     - n : int, default 5. The number of top positive and negative correlations to list.
     - var : str, (optional) default None. The variable of interest. If provided, the function
         will only show the top n positive and negative correlations for this variable.
-    - show_results : boolean, default True. Print the results. If False, only returns arrays
+    - show_results : boolean, default True. Print the results.
+    - return_arrays : boolean, default False. If true, return arrays with column names
 
-    Returns: Tuple
+    Returns: Tuple (if return_arrays == True)
         - positive_variables: array of variable names involved in top n positive correlations
         - negative_variables: array of variable names involved in top n negative correlations
     """
@@ -669,14 +670,16 @@ def get_corr(df, n=5, var=None, show_results=True):
         print("\nTop", n, "negative correlations:")
         print(negative_corr)
 
-    # Remove target variable from the arrays
-    positive_variables = positive_corr[['Variable 1', 'Variable 2']].values.flatten()
-    positive_variables = positive_variables[positive_variables != var]
+    # Return the arrays
+    if return_arrays:
+        # Remove target variable from the arrays
+        positive_variables = positive_corr[['Variable 1', 'Variable 2']].values.flatten()
+        positive_variables = positive_variables[positive_variables != var]
 
-    negative_variables = negative_corr[['Variable 1', 'Variable 2']].values.flatten()
-    negative_variables = negative_variables[negative_variables != var]
+        negative_variables = negative_corr[['Variable 1', 'Variable 2']].values.flatten()
+        negative_variables = negative_variables[negative_variables != var]
 
-    return positive_variables, negative_variables
+        return positive_variables, negative_variables
 
     
 def sk_vif(exogs, data):
@@ -1005,7 +1008,7 @@ results_df = None
 # my.results_df = pd.DataFrame(columns=['Iteration', 'Train MSE', 'Test MSE', 'Train RMSE', 'Test RMSE', 'Train MAE',
 #                'Test MAE', 'Train R^2 Score', 'Test R^2 Score', 'Pipeline', 'Best Grid Params', 'Note', 'Date'])
 
-def iterate_model(Xn_train, Xn_test, yn_train, yn_test, model=None, transformers=None, scaler=None, selector=None, drop=None, iteration='1', note='', save=False, export=False, plot=False, coef=False, perm=False, vif=False, cross=False, cv_folds=5, config=None, debug=False, grid=False, grid_params=None, grid_cv=None, grid_score='r2', grid_verbose=1, decimal=2):
+def iterate_model(Xn_train, Xn_test, yn_train, yn_test, model=None, transformers=None, scaler=None, selector=None, drop=None, iteration='1', note='', save=False, export=False, plot=False, coef=False, perm=False, vif=False, cross=False, cv_folds=5, config=None, debug=False, grid=False, grid_params=None, grid_cv=None, grid_score='r2', grid_verbose=1, decimal=2, lowess=False):
     """
     Creates a pipeline from specified parameters for transformers, scalers, and models. Parameters must be
     defined in configuration dictionary containing 3 dictionaries: transformer_dict, scaler_dict, model_dict.
@@ -1288,11 +1291,11 @@ def iterate_model(Xn_train, Xn_test, yn_train, yn_test, model=None, transformers
         plt.figure(figsize=(12, 3))
 
         plt.subplot(1, 2, 1)
-        sns.residplot(x=yn_train, y=yn_train_pred, lowess=True, scatter_kws={'s': 30, 'edgecolor': 'white'}, line_kws={'color': 'red', 'lw': '1'})
+        sns.residplot(x=yn_train, y=yn_train_pred, lowess=lowess, scatter_kws={'s': 30, 'edgecolor': 'white'}, line_kws={'color': 'red', 'lw': '1'})
         plt.title(f'Training Residuals - Iteration {iteration}')
 
         plt.subplot(1, 2, 2)
-        sns.residplot(x=yn_test, y=yn_test_pred, lowess=True, scatter_kws={'s': 30, 'edgecolor': 'white'}, line_kws={'color': 'red', 'lw': '1'})
+        sns.residplot(x=yn_test, y=yn_test_pred, lowess=lowess, scatter_kws={'s': 30, 'edgecolor': 'white'}, line_kws={'color': 'red', 'lw': '1'})
         plt.title(f'Test Residuals - Iteration {iteration}')
 
         plt.show()

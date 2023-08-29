@@ -71,8 +71,18 @@ Here are the main drivers of used car prices.
 - Conversely, **Sedan** (-0.16) and **Honda** (-0.1) are slightly negatively correlated with Price, suggesting they are slightly cheaper options.
 - In addition to Honda, a few manufacturers seem to have a weak negative correlation with Price: **Nissan** (-0.07), **Chrysler** (-0.06), and **Hyundai** (-0.06).
 - And lastly, vehicles with **Automatic** transmission (-0.08), or that are **Hatchbacks** (-0.06) or **Minivans** (-0.06), tend to be slightly cheaper.
-<p> <br /></p>
-<img src="images/price_odometer_year.png" alt="Price vs. Odometer by Year" width="300" align="top" /> <img src="images/price_correlations.png" alt="Correlations with Price" width="300" align="top" /> <img src="images/price_distribution.png" alt="Distribution of Price by Year" width="300" align="top" />
+
+<div style="display: flex;">
+  <div style="flex: 1; padding: 5px;">
+    <img src="images/price_odometer_year.png" alt="Price vs. Odometer by Year" style="width: 100%; height: auto;">
+  </div>
+  <div style="flex: 1; padding: 5px;">
+    <img src="images/price_correlations.png" alt="Correlations with Price" style="width: 100%; height: auto;">
+  </div>
+  <div style="flex: 1; padding: 5px;">
+    <img src="images/price_distribution.png" alt="Distribution of Price by Year" style="width: 100%; height: auto;">
+  </div>
+</div>
 
 ### 2. Provide recommendations on what consumers value
 
@@ -97,15 +107,34 @@ It's important to note that all of these car types exhist for a reason: There ar
 
 ### 3. Create price prediction model
 
-After several iterations, we were able to deliver a model that can predict price with **TBD** accuracy. Here are some things to note about this model:
+After several iterations, we were able to deliver a model that can predict price with roughly a 70% "accuracy." Here are some things to note about this model:
 
-* TBD
+* The model accounts for about **70% of the variance** in used car prices (R^2 0.70)
+* The model has an average error of about **$4,852 (MAE)**
+* The model is based on a **filtered dataset** of used car listings with prices between \$1,000 and \$80,000, odometers between 1,000 and 400,000, and older than 1980.
+* We believe this is representative of the typical range of **most used cars sold at dealers**
+* Given this range, it excludes certain classic cars or antiques that are likely priced on a different model
+* **All duplicates and junk data were stripped** from the dataset, so it should generalize well to unseen data
+* The model is a Linear Regression model based on the **top 40 correlated features** from our analysis
+* The main drivers of the model (its top coefficients) are: **Odometer, Year, Ferraris, Teslas, Porsches, and Diesel fuel.**
+* Some technical details (feel free to ignore): Pipeline was: Ordinal encoding, One-Hot Encoding, Log transformation, Polynomial degree 2 transformation, Ridge, GridSearchCV of alpha 0.001 - 100,000. Best alpha was 0.001.
+
+A detailed log of the model iterations can be found here: [results_df_20230829_024020.csv](results_df_20230829_024020.csv)
+
+<div style="display: flex;">
+  <div style="flex: 1; padding: 5px;">
+    <img src="images/r2_results.png" alt="R^2 Score by Model Iteration" style="width: 100%; height: auto;">
+  </div>
+  <div style="flex: 1; padding: 5px;">
+    <img src="images/mae_results.png" alt="MAE Score by Model Iteration" style="width: 100%; height: auto;">
+  </div>
+</div>
 
 ## Limitations
 
 There are a few limitations in the data:
 
-* **Junk Data:** This dataset was filled with a lot of junk data, missing values, and required a significant amount of cleaning to remove duplicates or impossible values. Some of it is clearly not accurate.
+* **Junk Data:** This dataset was filled with a lot of junk data, duplicate listings, missing values, and required a significant amount of cleaning to remove duplicates or impossible values. Some of it is clearly not accurate.
 * **Cleaning Impact:** As part of our data cleaning, a number of records were removed. Only 44.76% of the original dataset was retained. We may have unintentionally removed data that was legitimate, which could impact our conclusions.
 * **Biased Listings:** The basis of this dataset are postings on Craigslist by sellers, so there is clearly a bias in them – they want to sell their vehicle.
 * **Advertisements Only:** The numbers in this dataset are only the listing price, we do not know (a) if this transaction ever closed, nor (b) what the final sales price was.
